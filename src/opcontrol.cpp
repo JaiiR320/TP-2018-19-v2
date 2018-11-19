@@ -1,15 +1,20 @@
 #include "main.h"
 
-void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(1);
-	pros::Motor right_mtr(2);
-	while (true) {
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
+Controller master;
 
-		left_mtr = left;
-		right_mtr = right;
-		pros::delay(20);
+auto drive = ChassisControllerFactory::create({left_front, left_back},
+	{right_front, right_back},
+	AbstractMotor::gearset::green,
+	{4_in, 14_in});
+
+void opcontrol() {
+	int left, right;
+	while (true) {
+
+		left = master.getAnalog(ControllerAnalog::leftY);
+		right = master.getAnalog(ControllerAnalog::rightY);
+		drive.tank(left, right);
+
+		pros::Task::delay(20);
 	}
 }
