@@ -35,13 +35,13 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
-#include "robot.h"
-
-
-/**
- * You should add more #includes here
- */
 #include "okapi/api.hpp"
+#include "robot.h"
+#include "paths.h"
+#include "auton.h"
+#include "display/lvgl.h"
+
+
 //#include "pros/api_legacy.h"
 
 /**

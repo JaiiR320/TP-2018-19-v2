@@ -17,10 +17,20 @@ Motor lift_mtr = 7_mtr;
 Motor intake_mtr = 8_mtr;
 
 //drive train control
-ChassisControllerIntegrated drive = ChassisControllerFactory::create({left_front, left_back},
+ChassisControllerIntegrated drive = ChassisControllerFactory::create(
+	{left_front, left_back},
 	{right_front, right_back},
 	AbstractMotor::gearset::green,
-	{4_in, 14_in});
+	{4_in, 14_in}
+);
+
+//Motion profile
+AsyncMotionProfileController driveProfile = AsyncControllerFactory::motionProfile(
+  1.0, //Max Linear velocity m/s
+  1.0, //max acceleration m/s/s
+  1.0, //max jerk m/s/s/s
+  drive //chassis
+);
 
 //lift control
 AsyncPosIntegratedController lift = AsyncControllerFactory::posIntegrated(intake_mtr);
