@@ -23,7 +23,7 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create({left_front
 	{4_in, 14_in});
 
 //lift control
-AsyncPosIntegratedController controller = AsyncControllerFactory::posIntegrated(intake_mtr);
+AsyncPosIntegratedController lift = AsyncControllerFactory::posIntegrated(intake_mtr);
 
 //flywheel control
 MotorGroup flywheel_mtrs({flywheel1, flywheel2});
