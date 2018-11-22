@@ -41,9 +41,7 @@ AsyncVelIntegratedController flywheel = AsyncControllerFactory::velIntegrated(fl
 
 
 //Motion Profiling Testing
-void robot_kinematics(){
-	int seconds = 3;
-
+void robot_kinematics(int seconds){
 	double pos[seconds * 10];
 	double vel[seconds * 10];
 	double acl[seconds * 10];

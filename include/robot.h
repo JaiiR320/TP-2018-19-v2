@@ -28,6 +28,6 @@ extern AsyncVelIntegratedController flywheel;
 extern AsyncPosIntegratedController lift;
 
 //Motion Profile Testing
-void robot_kinematics();
+void robot_kinematics(int seconds);
 
 #endif

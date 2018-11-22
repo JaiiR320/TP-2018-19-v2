@@ -6,6 +6,8 @@ void opcontrol() {
 	int target = 0;
 	while (true) {
 
+		robot_kinematics(3);
+
 		/*  STANDARD Program
 		//Side Selection
 		if(master.getDigital(ControllerDigital::up) == true){
