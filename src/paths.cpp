@@ -1,9 +1,9 @@
   #include "main.h"
 
-void mainPathGen(){
+void mainPathGen(int color){
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},  // Profile starting position, this will normally be (0, 0, 0)
-    Point{3_ft, 0_ft, 0_deg}}, // The next point in the profile, 3 feet forward
+    Point{color * 3_ft, 0_ft, 0_deg}}, // The next point in the profile, 3 feet forward
     "main_1" // Profile name
   );
   driveProfile.generatePath({
@@ -12,10 +12,10 @@ void mainPathGen(){
   );
 }
 
-void secondPathGen(){
+void secondPathGen(int color){
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{3_ft, 0_ft, 0_deg}},
+    Point{color * 3_ft, 0_ft, 0_deg}},
     "second_1"
   );
   driveProfile.generatePath({
@@ -24,10 +24,10 @@ void secondPathGen(){
   );
 }
 
-void safePathGen(){
+void safePathGen(int color){
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{3_ft, 0_ft, 0_deg}},
+    Point{color * 3_ft, 0_ft, 0_deg}},
     "safe_1"
   );
   driveProfile.generatePath({

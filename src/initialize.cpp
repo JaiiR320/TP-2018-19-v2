@@ -8,10 +8,13 @@ static lv_res_t side_sel(lv_obj_t * sideBTNS, const char *txt){
 	//occurs when side button are toggled
 	if (strcmp(txt, "main") == 0) {
 		auton = 1;
+		mainPathGen(color);
 	} else if (strcmp(txt, "center") == 0){
 		auton = 2;
+		secondPathGen(color);
 	}	else if(strcmp(txt, "safe") == 0){
 		auton = 3;
+		safePathGen(color);
 	} else {
 		auton = 0;
 	}

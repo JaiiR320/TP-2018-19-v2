@@ -5,6 +5,8 @@ void opcontrol() {
 	int side = 1;
 	int target = 0;
 	while (true) {
+
+		/*  STANDARD Program
 		//Side Selection
 		if(master.getDigital(ControllerDigital::up) == true){
 			side = 1;
@@ -44,7 +46,7 @@ void opcontrol() {
 		} else if (master.getDigital(ControllerDigital::R2) == true) {
 			lift.setTarget(0);
 		}
-
+		*/
 		pros::delay(20);
 	}
 }
