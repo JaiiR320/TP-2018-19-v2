@@ -16,7 +16,7 @@ static lv_res_t side_sel(lv_obj_t * sideBTNS, const char *txt){
 		auton = 3;
 		safePathGen(color);
 	} else {
-		auton = 0;
+		auton = 1;
 	}
 	std::cout << "Auton: " << auton << '\n';
 
@@ -26,11 +26,11 @@ static lv_res_t side_sel(lv_obj_t * sideBTNS, const char *txt){
 static lv_res_t col_sel(lv_obj_t * colorBTNS, const char *txt){
 	//occurs when color buttons are toggled
 	if (strcmp(txt, "red") == 0) {
-		color = 'r';
+		color = 1;
 	} else if (strcmp(txt, "blue") == 0){
-			color = 'b';
+			color = -1;
 	}	else {
-			color = 'n';
+			color = 1;
 	}
 
 	std::cout << "Color: " << color << '\n';

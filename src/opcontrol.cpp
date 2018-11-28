@@ -1,14 +1,14 @@
 #include "main.h"
 
 void opcontrol() {
-	int left, right;
-	int side = 1;
+	float left, right;
+	float side = 1;
 	int target = 0;
+
+	robot_kinematics(3);
+
 	while (true) {
 
-		robot_kinematics(3);
-
-		/*  STANDARD Program
 		//Side Selection
 		if(master.getDigital(ControllerDigital::up) == true){
 			side = 1;
@@ -20,11 +20,7 @@ void opcontrol() {
 		left = master.getAnalog(ControllerAnalog::leftY);
 		right = master.getAnalog(ControllerAnalog::rightY);
 
-		if(side == 1) {
-			drive.tank(left, right);
-		} else {
-			drive.tank(-right, -left);
-		}
+		drive.tank(left, right);
 
 		//flywheel
 		if (master.getDigital(ControllerDigital::Y) == true) {
@@ -48,7 +44,7 @@ void opcontrol() {
 		} else if (master.getDigital(ControllerDigital::R2) == true) {
 			lift.setTarget(0);
 		}
-		*/
+
 		pros::delay(20);
 	}
 }
