@@ -56,7 +56,6 @@ void robot_kinematics(int seconds){
 
 	drive.forward(1);
 
-
 	for (size_t i = 1; i < seconds * 100; i++) {
 		pos[i] = ((left_back.getPosition() / 360) * 0.3191764);
 		pros::delay(10);
