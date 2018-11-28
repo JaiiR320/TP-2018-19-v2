@@ -65,22 +65,23 @@ void robot_kinematics(int seconds){
 	drive.stop();
 
 	for (size_t i = 1; i < seconds * 100; i++) {
-		vel[i] = (pos[i] - pos[i - 1]) / .001;
+		vel[i] = (pos[i] - pos[i - 1]) / .01;
 		if (vel[i] > max_vel) {
 			max_vel = vel[i];
   	}
 		pros::delay(10);
 	}
+
 	for (size_t i = 1; i < seconds * 100; i++) {
-		acl[i] = (vel[i] - vel[i - 1]) / .001;
+		acl[i] = (vel[i] - vel[i - 1]) / .01;
 		if (acl[i] > max_acl) {
 			max_acl = acl[i];
 		}
-
 		pros::delay(10);
 	}
+
 	for (size_t i = 1; i < seconds * 100; i++) {
-		jrk[i] = (acl[i] - acl[i - 1]) / .001;
+		jrk[i] = (acl[i] - acl[i - 1]) / .01;
 		if (jrk[i] > max_jrk) {
 			max_jrk = jrk[i];
 		}
