@@ -14,8 +14,7 @@ extern Motor right_front;
 extern Motor left_back;
 extern Motor right_back;
 
-extern Motor flywheel1;
-extern Motor flywheel2;
+extern Motor flywheel_mtr;
 
 extern Motor lift_mtr;
 
