@@ -6,6 +6,7 @@ using namespace okapi;
 
 extern int auton;
 extern int color;
+extern bool duo;
 
 void mainAuton(int side);
 void secondAuton(int side);

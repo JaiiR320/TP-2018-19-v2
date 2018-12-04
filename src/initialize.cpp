@@ -6,13 +6,13 @@
 
 static lv_res_t side_sel(lv_obj_t * sideBTNS, const char *txt){
 	//occurs when side button are toggled
-	if (strcmp(txt, "main") == 0) {
+	if (strcmp(txt, "Main") == 0) {
 		auton = 1;
 		mainPathGen(color);
-	} else if (strcmp(txt, "center") == 0){
+	} else if (strcmp(txt, "Second") == 0){
 		auton = 2;
 		secondPathGen(color);
-	}	else if(strcmp(txt, "safe") == 0){
+	}	else if(strcmp(txt, "Safe") == 0){
 		auton = 3;
 		safePathGen(color);
 	} else {
@@ -38,10 +38,24 @@ static lv_res_t col_sel(lv_obj_t * colorBTNS, const char *txt){
   return LV_RES_OK; /*Return OK because the button matrix is not deleted*/
 }
 
-;
+static lv_res_t duo_sel(lv_obj_t * duoBTNS, const char *txt){
+	//occurs when color buttons are toggled
+	if (strcmp(txt, "Duo") == 0) {
+		duo = true;
+	} else if (strcmp(txt, "Solo") == 0){
+			duo = false;
+	}	else {
+			duo = false;
+	}
 
-static const char * btnm_side[] = {"main", "center", "safe", ""};
-static const char * btnm_color[] = {"red", "blue", ""};
+	std::cout << "Color: " << color << '\n';
+
+  return LV_RES_OK; /*Return OK because the button matrix is not deleted*/
+}
+
+static const char * btnm_side[] = {"Main", "Second", "Safe", ""};
+static const char * btnm_color[] = {"Red", "Blue", ""};
+static const char * btnm_duo[] = {"Duo", "Solo", ""};
 
 void initialize() {
 	//Background Style
@@ -78,7 +92,7 @@ void initialize() {
 	lv_btnm_set_style(sideBTNS, LV_BTNM_STYLE_BTN_PR, &style_btn_pr);
 	lv_btnm_set_style(sideBTNS, LV_BTNM_STYLE_BTN_TGL_PR, &style_btn_pr);
 	lv_btnm_set_style(sideBTNS, LV_BTNM_STYLE_BTN_TGL_REL, &style_btn_pr);
-	lv_obj_set_size(sideBTNS, LV_HOR_RES, LV_VER_RES / 2);
+	lv_obj_set_size(sideBTNS, LV_HOR_RES, LV_VER_RES / 3);
 	//Allow toggling
 	for (std::size_t i = 0; i < 2; i++){
 		lv_btnm_set_toggle(sideBTNS, true, i);
@@ -93,11 +107,26 @@ void initialize() {
 	lv_btnm_set_style(colorBTNS, LV_BTNM_STYLE_BTN_PR, &style_btn_pr);
 	lv_btnm_set_style(colorBTNS, LV_BTNM_STYLE_BTN_TGL_PR, &style_btn_pr);
 	lv_btnm_set_style(colorBTNS, LV_BTNM_STYLE_BTN_TGL_REL, &style_btn_pr);
-	lv_obj_set_size(colorBTNS, LV_HOR_RES, LV_VER_RES / 2);
+	lv_obj_set_size(colorBTNS, LV_HOR_RES, LV_VER_RES / 3);
 	lv_obj_align(colorBTNS, sideBTNS, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
 	//Allow toggling
 	for (std::size_t i = 0; i < 1; i++){
 		lv_btnm_set_toggle(colorBTNS, true, i);
+	}
+
+	lv_obj_t * duoBTNS = lv_btnm_create(lv_scr_act(), NULL);
+	lv_btnm_set_map(duoBTNS, btnm_duo);
+	lv_btnm_set_action(duoBTNS, duo_sel); //action function
+	lv_btnm_set_style(duoBTNS, LV_BTNM_STYLE_BG, &style_bg);
+	lv_btnm_set_style(duoBTNS, LV_BTNM_STYLE_BTN_REL, &style_btn_rel);
+	lv_btnm_set_style(duoBTNS, LV_BTNM_STYLE_BTN_PR, &style_btn_pr);
+	lv_btnm_set_style(duoBTNS, LV_BTNM_STYLE_BTN_TGL_PR, &style_btn_pr);
+	lv_btnm_set_style(duoBTNS, LV_BTNM_STYLE_BTN_TGL_REL, &style_btn_pr);
+	lv_obj_set_size(duoBTNS, LV_HOR_RES, LV_VER_RES / 3);
+	lv_obj_align(duoBTNS, colorBTNS, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
+	//Allow toggling
+	for (std::size_t i = 0; i < 1; i++){
+		lv_btnm_set_toggle(duoBTNS, true, i);
 	}
 
 }

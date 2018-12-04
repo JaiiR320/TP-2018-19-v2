@@ -2,6 +2,7 @@
 
 int color = 0;
 int auton = 0;
+bool duo = true;
 
 void mainAuton(int side){
   driveProfile.setTarget("main_1");
