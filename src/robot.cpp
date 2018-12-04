@@ -9,11 +9,11 @@ Motor left_back = 2_mtr;
 Motor right_front = 3_rmtr;
 Motor right_back = 4_rmtr;
 
-Motor flywheel_mtr = 5_rmtr;
+Motor flywheel_mtr = 8_rmtr;
 
-Motor lift_mtr = 7_mtr;
+Motor lift_mtr = 10_mtr;
 
-Motor intake_mtr = 8_mtr;
+Motor intake_mtr = 7_mtr;
 
 //drive train control
 ChassisControllerIntegrated drive = ChassisControllerFactory::create(
