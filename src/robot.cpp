@@ -28,8 +28,8 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 //Motion profile
 AsyncMotionProfileController driveProfile = AsyncControllerFactory::motionProfile(
 	1.1, //Max Linear velocity m/s
-  18.0, //max acceleration m/s/s
-  1400.0, //max jerk m/s/s/s
+  4.0, //max acceleration m/s/s
+  1.0, //max jerk m/s/s/s
   drive //chassis
 );
 

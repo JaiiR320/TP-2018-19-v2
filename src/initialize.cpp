@@ -53,10 +53,6 @@ static const char * btnm_duo[] = {"Duo", "Solo", ""};
 
 void initialize() {
 	//PATHS
-	mainPathGen(1);
-	secondPathGen(1);
-	safePathGen(1);
-
 	//Background Style
 	static lv_style_t style_bg;
 	lv_style_copy(&style_bg, &lv_style_plain);
@@ -127,9 +123,14 @@ void initialize() {
 	for (std::size_t i = 0; i < 1; i++){
 		lv_btnm_set_toggle(duoBTNS, true, i);
 	}
+
+	mainPathGen(1);
+	secondPathGen(1);
+	safePathGen(1);
 }
 
 void disabled() {
+
 }
 
 void competition_initialize() {

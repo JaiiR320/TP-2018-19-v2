@@ -9,7 +9,7 @@ void mainAuton(int side){
   flywheel.setTarget(200);
   intake_mtr.moveVelocity(200);
   driveProfile.setTarget("main_1");
-  waitUntilSettled();
+  driveProfile.waitUntilSettled();
   driveProfile.setTarget("main_1", true);
   drive.turnAngle(side * 90_deg);
 
