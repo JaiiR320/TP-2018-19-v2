@@ -2,38 +2,34 @@
 
 //V5 Brain display res:
 //480 x 272 pixels
-//implement auton Toggle
+
+//Bool if using 2 or 1 contoller
+bool duo = true;
 
 static lv_res_t side_sel(lv_obj_t * sideBTNS, const char *txt){
 	//occurs when side button are toggled
 	if (strcmp(txt, "Main") == 0) {
 		auton = 1;
-		mainPathGen(color);
 	} else if (strcmp(txt, "Second") == 0){
 		auton = 2;
-		secondPathGen(color);
 	}	else if(strcmp(txt, "Safe") == 0){
 		auton = 3;
-		safePathGen(color);
 	} else {
 		auton = 1;
 	}
-	std::cout << "Auton: " << auton << '\n';
 
-  return LV_RES_INV; /*Return OK because the button matrix is not deleted*/
+  return LV_RES_OK; /*Return OK because the button matrix is not deleted*/
 }
 
 static lv_res_t col_sel(lv_obj_t * colorBTNS, const char *txt){
 	//occurs when color buttons are toggled
-	if (strcmp(txt, "red") == 0) {
+	if (strcmp(txt, "Red") == 0) {
+		color = -1;
+	} else if (strcmp(txt, "Blue") == 0){
 		color = 1;
-	} else if (strcmp(txt, "blue") == 0){
-			color = -1;
 	}	else {
-			color = 1;
+		color = 1;
 	}
-
-	std::cout << "Color: " << color << '\n';
 
   return LV_RES_OK; /*Return OK because the button matrix is not deleted*/
 }
@@ -43,12 +39,10 @@ static lv_res_t duo_sel(lv_obj_t * duoBTNS, const char *txt){
 	if (strcmp(txt, "Duo") == 0) {
 		duo = true;
 	} else if (strcmp(txt, "Solo") == 0){
-			duo = false;
+		duo = false;
 	}	else {
-			duo = false;
+		duo = false;
 	}
-
-	std::cout << "Color: " << color << '\n';
 
   return LV_RES_OK; /*Return OK because the button matrix is not deleted*/
 }
@@ -58,6 +52,11 @@ static const char * btnm_color[] = {"Red", "Blue", ""};
 static const char * btnm_duo[] = {"Duo", "Solo", ""};
 
 void initialize() {
+	//PATHS
+	mainPathGen(1);
+	secondPathGen(1);
+	safePathGen(1);
+
 	//Background Style
 	static lv_style_t style_bg;
 	lv_style_copy(&style_bg, &lv_style_plain);
@@ -128,7 +127,6 @@ void initialize() {
 	for (std::size_t i = 0; i < 1; i++){
 		lv_btnm_set_toggle(duoBTNS, true, i);
 	}
-
 }
 
 void disabled() {

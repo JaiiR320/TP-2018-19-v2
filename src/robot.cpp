@@ -15,6 +15,8 @@ Motor lift_mtr = 10_mtr;
 
 Motor intake_mtr = 7_mtr;
 
+Motor index_mtr = 9_mtr;
+
 //drive train control
 ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 	{left_front, left_back},
@@ -25,9 +27,9 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 
 //Motion profile
 AsyncMotionProfileController driveProfile = AsyncControllerFactory::motionProfile(
-	1.0, //Max Linear velocity m/s
-  1.0, //max acceleration m/s/s
-  1.0, //max jerk m/s/s/s
+	1.1, //Max Linear velocity m/s
+  18.0, //max acceleration m/s/s
+  1400.0, //max jerk m/s/s/s
   drive //chassis
 );
 
@@ -59,7 +61,7 @@ void robot_kinematics(int seconds){
 		pros::delay(10);
 	}
 
-	drive.stop();
+	drive.forward(0);
 
 	for (size_t i = 1; i < seconds * 100; i++) {
 		vel[i] = (pos[i] - pos[i - 1]) / .01;
@@ -85,7 +87,7 @@ void robot_kinematics(int seconds){
 		pros::delay(10);
 	}
 
-	std::cout << "Max Vel:   " << '\n';
-	std::cout << "Max Accel: " << '\n';
-	std::cout << "Max Jerk:  " << '\n';
+	std::cout << "Max Vel:   " << max_vel << '\n';
+	std::cout << "Max Accel: " << max_acl << '\n';
+	std::cout << "Max Jerk:  " << max_jrk << '\n';
 }

@@ -20,6 +20,8 @@ extern Motor lift_mtr;
 
 extern Motor intake_mtr;
 
+extern Motor index_mtr;
+
 //Okapi controllers
 extern ChassisControllerIntegrated drive;
 extern AsyncMotionProfileController driveProfile;
