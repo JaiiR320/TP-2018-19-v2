@@ -28,8 +28,8 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 //Motion profile
 AsyncMotionProfileController driveProfile = AsyncControllerFactory::motionProfile(
 	1.064, //Max Linear velocity m/s (calculated based off rpm of motor)
-  14.0, //max acceleration m/s/s (kailas 4) (me 14.2)
-  1400, //max jerk m/s/s/s (kailas 10) (me 1400)
+  10.64, //max acceleration m/s/s (kailas 4) (me 14.2)
+  1064, //max jerk m/s/s/s (kailas 10) (me 1400)
 	drive //chassis
 );
 
@@ -90,4 +90,12 @@ void robot_kinematics(int seconds){
 	std::cout << "Max Vel:  " << max_vel << '\n';
 	std::cout << "Max Acl:  " << max_acl << '\n';
 	std::cout << "Max Jrk:  " << max_jrk << '\n';
+}
+
+//Stop entire robot
+void robotStop () {
+	drive.stop();
+	intake_mtr.moveVelocity(0);
+	index_mtr.moveVelocity(0);
+	flywheel.setTarget(0);
 }

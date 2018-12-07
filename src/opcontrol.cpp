@@ -33,8 +33,8 @@ void opcontrol() {
 			} else if (master.getDigital(ControllerDigital::B) == true) {
 				flywheel.setTarget(0);
 			}
-			
-			if (flywheel.getError() < 5) {
+
+			if (flywheel.getError() < 1) {
 				master.setText(1, 1, "READY");
 				master.rumble(". . ");
 			}	else {
@@ -84,7 +84,7 @@ void opcontrol() {
 				flywheel.setTarget(0);
 			}
 
-			if (flywheel.getError() < 5) {
+			if (flywheel.getError() < 1) {
 				master.setText(1, 1, "READY");
 				master.rumble(". . ");
 			}	else {

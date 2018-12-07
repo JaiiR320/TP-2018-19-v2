@@ -7,4 +7,5 @@ void autonomous() {
     case 2: secondAuton(Acolor);
     case 3: safeAuton(Acolor);
   }
+  pros::delay(99999);
 }

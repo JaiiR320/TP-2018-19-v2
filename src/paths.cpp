@@ -1,6 +1,6 @@
 #include "main.h"
 
-void mainPathGen(int color){
+void mainPathGen(){
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},  // Profile starting position, this will normally be (0, 0, 0)
     Point{29_in, 0_ft, 0_deg}}, // The next point in the profile, 3 feet forward
@@ -28,7 +28,12 @@ void mainPathGen(int color){
   );
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{9_in, 0_ft, 0_deg}},
+    Point{10_in, 0_ft, 0_deg}},
+    "towards_flag"
+  );
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},
+    Point{6_in, 0_ft, 0_deg}},
     "flag_backup"
   );
 

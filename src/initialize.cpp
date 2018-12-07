@@ -122,11 +122,10 @@ void initialize() {
 	for (std::size_t i = 0; i < 1; i++){
 		lv_btnm_set_toggle(duoBTNS, true, i);
 	}
-	mainPathGen(1);
-	/*
-	right_front.setVoltageLimit(120);
-	right_back.setVoltageLimit(120);
-	*/
+	mainPathGen();
+
+	right_front.setVoltageLimit(11200);
+	right_back.setVoltageLimit(11200);
 }
 
 void disabled() {

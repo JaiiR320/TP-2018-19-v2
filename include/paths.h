@@ -4,10 +4,6 @@
 #include "okapi/api.hpp"
 using namespace okapi;
 
-void mainPathGen(int color);
-
-void secondPathGen(int color);
-
-void safePathGen(int color);
+void mainPathGen();
 
 #endif
