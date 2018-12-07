@@ -7,7 +7,7 @@ void opcontrol() {
 	while (1){
 		while (duo == false){
 			//Side Selection - WIP
-			if(master.getDigital(ControllerDigital::up) == true){
+			if(partner.getDigital(ControllerDigital::up) == true){
 				side = 1;
 			} else if(partner.getDigital(ControllerDigital::up) == true){
 				side = -1;
@@ -25,13 +25,20 @@ void opcontrol() {
 				right_pwr = left * side;
 			}
 
-			drive.tank(left, right);
+			drive.tank(left_pwr, right_pwr);
 
 			//Flywheel
 			if (master.getDigital(ControllerDigital::Y) == true) {
 				flywheel.setTarget(200);
 			} else if (master.getDigital(ControllerDigital::B) == true) {
 				flywheel.setTarget(0);
+			}
+			
+			if (flywheel.getError() < 5) {
+				master.setText(1, 1, "READY");
+				master.rumble(". . ");
+			}	else {
+				master.clear();
 			}
 
 			//intake
@@ -75,6 +82,13 @@ void opcontrol() {
 				flywheel.setTarget(200);
 			} else if (master.getDigital(ControllerDigital::B) == true) {
 				flywheel.setTarget(0);
+			}
+
+			if (flywheel.getError() < 5) {
+				master.setText(1, 1, "READY");
+				master.rumble(". . ");
+			}	else {
+				master.clear();
 			}
 
 			//intake - WIP

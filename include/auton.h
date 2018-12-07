@@ -4,8 +4,8 @@
 #include "okapi/api.hpp"
 using namespace okapi;
 
-extern int auton;
-extern int color;
+extern int Aauton;
+extern int Acolor;
 extern bool duo;
 
 void mainAuton(int side);

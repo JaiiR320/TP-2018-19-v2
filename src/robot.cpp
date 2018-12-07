@@ -27,10 +27,10 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 
 //Motion profile
 AsyncMotionProfileController driveProfile = AsyncControllerFactory::motionProfile(
-	1.1, //Max Linear velocity m/s
-  4.0, //max acceleration m/s/s
-  1.0, //max jerk m/s/s/s
-  drive //chassis
+	1.064, //Max Linear velocity m/s (calculated based off rpm of motor)
+  14.0, //max acceleration m/s/s (kailas 4) (me 14.2)
+  1400, //max jerk m/s/s/s (kailas 10) (me 1400)
+	drive //chassis
 );
 
 //lift control
@@ -57,11 +57,11 @@ void robot_kinematics(int seconds){
 	drive.forward(1);
 
 	for (size_t i = 1; i < seconds * 100; i++) {
-		pos[i] = ((left_back.getPosition() / 360) * 0.3191764);
+		pos[i] = ((left_back.getPosition() / 360) * 0.31917);
 		pros::delay(10);
 	}
 
-	drive.forward(0);
+	drive.stop();
 
 	for (size_t i = 1; i < seconds * 100; i++) {
 		vel[i] = (pos[i] - pos[i - 1]) / .01;
@@ -87,7 +87,7 @@ void robot_kinematics(int seconds){
 		pros::delay(10);
 	}
 
-	std::cout << "Max Vel:   " << max_vel << '\n';
-	std::cout << "Max Accel: " << max_acl << '\n';
-	std::cout << "Max Jerk:  " << max_jrk << '\n';
+	std::cout << "Max Vel:  " << max_vel << '\n';
+	std::cout << "Max Acl:  " << max_acl << '\n';
+	std::cout << "Max Jrk:  " << max_jrk << '\n';
 }

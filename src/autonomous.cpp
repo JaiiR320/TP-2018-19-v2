@@ -2,9 +2,9 @@
 
 
 void autonomous() {
-  switch (auton) {
-    case 1: mainAuton(color);
-    case 2: secondAuton(color);
-    case 3: safeAuton(color);
+  switch (Aauton) {
+    case 1: mainAuton(Acolor);
+    case 2: secondAuton(Acolor);
+    case 3: safeAuton(Acolor);
   }
 }
