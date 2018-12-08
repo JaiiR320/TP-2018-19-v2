@@ -28,10 +28,32 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 //Motion profile
 AsyncMotionProfileController driveProfile = AsyncControllerFactory::motionProfile(
 	1.064, //Max Linear velocity m/s (calculated based off rpm of motor)
-  10.64, //max acceleration m/s/s (kailas 4) (me 14.2)
-  1064, //max jerk m/s/s/s (kailas 10) (me 1400)
+    10.64, //max acceleration m/s/s (kailas 4) (me 14.2)
+    1064, //max jerk m/s/s/s (kailas 10) (me 1400)
 	drive //chassis
 );
+
+void turn(double degrees, int speed){ //Pos degrees turns right
+  	double arclength = 2 * 3.1415926 * 7 * (degrees / 360);
+
+  	double dist = (arclength / 12.566) * 360;
+
+  	left_front.moveRelative(dist + 3, speed);
+  	left_back.moveRelative(dist + 3, speed);
+  	right_front.moveRelative(-dist, speed);
+  	right_back.moveRelative(-dist, speed);
+}
+
+void dist(float dist, int speed){//in inches
+    dist = ((dist / 12.566) * 360);
+    //encoder degrees = pathlength / circumferemce times 1 rotation
+    //pathlength = encoder deg / 1 rotation times circumference
+
+  	left_front.moveRelative(dist + 12, speed);
+  	left_back.moveRelative(dist + 12, speed);
+  	right_front.moveRelative(dist, speed);
+  	right_back.moveRelative(dist, speed);
+  }
 
 //lift control
 AsyncPosIntegratedController lift = AsyncControllerFactory::posIntegrated(intake_mtr);
@@ -51,7 +73,7 @@ void robot_kinematics(int seconds){
 	double max_acl = 0;
 	double max_jrk = 0;
 	vel[0] = 0;
-  acl[0] = 0;
+    acl[0] = 0;
 	jrk[0] = 0;
 
 	drive.forward(1);
@@ -67,7 +89,7 @@ void robot_kinematics(int seconds){
 		vel[i] = (pos[i] - pos[i - 1]) / .01;
 		if (vel[i] > max_vel) {
 			max_vel = vel[i];
-  	}
+  		}
 		pros::delay(10);
 	}
 

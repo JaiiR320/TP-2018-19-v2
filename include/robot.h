@@ -31,6 +31,10 @@ extern AsyncPosIntegratedController lift;
 //Motion Profile Testing
 void robot_kinematics(int seconds);
 
+void turn(double degrees, int speed);
+
+void dist(float dist, int speed);
+
 void maxVel(int left, int right);
 
 void robotStop();

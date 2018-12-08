@@ -29,11 +29,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/opcontrol.cpp.o",
-            "src\\opcontrol.cpp"
+            "bin/paths.cpp.o",
+            "src\\paths.cpp"
         ],
         "directory": "C:\\Users\\jair3\\Desktop\\TP-2018-19-v2",
-        "file": "src\\opcontrol.cpp"
+        "file": "src\\paths.cpp"
     },
     {
         "arguments": [
@@ -65,11 +65,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/autonomous.cpp.o",
-            "src\\autonomous.cpp"
+            "bin/opcontrol.cpp.o",
+            "src\\opcontrol.cpp"
         ],
         "directory": "C:\\Users\\jair3\\Desktop\\TP-2018-19-v2",
-        "file": "src\\autonomous.cpp"
+        "file": "src\\opcontrol.cpp"
     },
     {
         "arguments": [
@@ -173,11 +173,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/paths.cpp.o",
-            "src\\paths.cpp"
+            "bin/autonomous.cpp.o",
+            "src\\autonomous.cpp"
         ],
         "directory": "C:\\Users\\jair3\\Desktop\\TP-2018-19-v2",
-        "file": "src\\paths.cpp"
+        "file": "src\\autonomous.cpp"
     },
     {
         "arguments": [

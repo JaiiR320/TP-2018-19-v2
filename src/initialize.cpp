@@ -124,8 +124,8 @@ void initialize() {
 	}
 	mainPathGen();
 
-	right_front.setVoltageLimit(11200);
-	right_back.setVoltageLimit(11200);
+	right_front.setVoltageLimit(11100);
+	right_back.setVoltageLimit(11100);
 }
 
 void disabled() {
