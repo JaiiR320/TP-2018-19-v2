@@ -9,7 +9,7 @@ Motor left_back = 2_mtr;
 Motor right_front = 3_rmtr;
 Motor right_back = 4_rmtr;
 
-Motor flywheel_mtr = 8_rmtr;
+Motor flywheel_mtr = 6_rmtr;
 
 Motor lift_mtr = 10_mtr;
 
@@ -22,38 +22,38 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 	{left_front, left_back},
 	{right_front, right_back},
 	AbstractMotor::gearset::green,
-	{4_in, 14_in}
+	{4_in, 14.25_in}
 );
 
 //Motion profile
 AsyncMotionProfileController driveProfile = AsyncControllerFactory::motionProfile(
 	1.064, //Max Linear velocity m/s (calculated based off rpm of motor)
-    10.64, //max acceleration m/s/s (kailas 4) (me 14.2)
-    1064, //max jerk m/s/s/s (kailas 10) (me 1400)
+  4, //max acceleration m/s/s (kailas 4) (me 14.2)
+  10, //max jerk m/s/s/s (kailas 10) (me 1400)
 	drive //chassis
 );
 
 void turn(double degrees, int speed){ //Pos degrees turns right
-  	double arclength = 2 * 3.1415926 * 7 * (degrees / 360);
+	double arclength = 2 * 3.1415926 * 7 * (degrees / 360);
 
-  	double dist = (arclength / 12.566) * 360;
+	double dist = (arclength / 12.566) * 360;
 
-  	left_front.moveRelative(dist + 3, speed);
-  	left_back.moveRelative(dist + 3, speed);
-  	right_front.moveRelative(-dist, speed);
-  	right_back.moveRelative(-dist, speed);
+	left_front.moveRelative(dist, speed);
+	left_back.moveRelative(dist, speed);
+	right_front.moveRelative(-dist, speed);
+	right_back.moveRelative(-dist, speed);
 }
 
 void dist(float dist, int speed){//in inches
-    dist = ((dist / 12.566) * 360);
-    //encoder degrees = pathlength / circumferemce times 1 rotation
-    //pathlength = encoder deg / 1 rotation times circumference
+  dist = ((dist / 12.566) * 360);
+  //encoder degrees = pathlength / circumferemce times 1 rotation
+  //pathlength = encoder deg / 1 rotation times circumference
 
-  	left_front.moveRelative(dist + 12, speed);
-  	left_back.moveRelative(dist + 12, speed);
-  	right_front.moveRelative(dist, speed);
-  	right_back.moveRelative(dist, speed);
-  }
+  left_front.moveRelative(dist + 12, speed);
+	left_back.moveRelative(dist + 12, speed);
+	right_front.moveRelative(dist, speed);
+	right_back.moveRelative(dist, speed);
+}
 
 //lift control
 AsyncPosIntegratedController lift = AsyncControllerFactory::posIntegrated(intake_mtr);
