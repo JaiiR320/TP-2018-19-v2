@@ -34,13 +34,6 @@ void opcontrol() {
 				flywheel.setTarget(0);
 			}
 
-			if (flywheel.getError() < 1) {
-				master.setText(1, 1, "READY");
-				master.rumble(". . ");
-			}	else {
-				master.clear();
-			}
-
 			//intake
 			if (master.getDigital(ControllerDigital::L1) == true) {
 				intake_mtr.moveVelocity(200);
@@ -82,13 +75,6 @@ void opcontrol() {
 				flywheel.setTarget(200);
 			} else if (master.getDigital(ControllerDigital::B) == true) {
 				flywheel.setTarget(0);
-			}
-
-			if (flywheel.getError() < 1) {
-				master.setText(1, 1, "READY");
-				master.rumble(". . ");
-			}	else {
-				master.clear();
 			}
 
 			//intake - WIP
