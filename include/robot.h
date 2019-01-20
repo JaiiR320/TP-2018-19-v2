@@ -26,7 +26,7 @@ extern Motor index_mtr;
 extern ChassisControllerIntegrated drive;
 extern AsyncMotionProfileController driveProfile;
 extern AsyncVelIntegratedController flywheel;
-extern AsyncPosIntegratedController lift;
+extern AsyncLinearMotionProfileController lift;
 
 //Motion Profile Testing
 void robot_kinematics(int seconds);

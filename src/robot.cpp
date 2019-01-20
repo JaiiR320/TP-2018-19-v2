@@ -27,11 +27,22 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 
 //Motion profile
 AsyncMotionProfileController driveProfile = AsyncControllerFactory::motionProfile(
-	1.064, //Max Linear velocity m/s (calculated based off rpm of motor)
+	1.06, //Max Linear velocity m/s (calculated based off rpm of motor)
   4, //max acceleration m/s/s (kailas 4) (me 14.2)
   10, //max jerk m/s/s/s (kailas 10) (me 1400)
 	drive //chassis
 );
+
+//lift control
+AsyncLinearMotionProfileController lift = AsyncControllerFactory::linearMotionProfile(
+	1.06,
+	4,
+	10,
+	10
+);
+
+//flywheel control
+AsyncVelIntegratedController flywheel = AsyncControllerFactory::velIntegrated(flywheel_mtr);
 
 void turn(double degrees, int speed){ //Pos degrees turns right
 	double arclength = 2 * 3.1415926 * 7 * (degrees / 360);
@@ -54,13 +65,6 @@ void dist(float dist, int speed){//in inches
 	right_front.moveRelative(dist, speed);
 	right_back.moveRelative(dist, speed);
 }
-
-//lift control
-AsyncPosIntegratedController lift = AsyncControllerFactory::posIntegrated(intake_mtr);
-
-//flywheel control
-AsyncVelIntegratedController flywheel = AsyncControllerFactory::velIntegrated(flywheel_mtr);
-
 
 //Motion Profiling Testing
 void robot_kinematics(int seconds){

@@ -1,33 +1,20 @@
 #include "main.h"
 
 void opcontrol() {
-	float left, right, left_pwr, right_pwr;
-	int side = 1;
+	float left, right;
 	//1 controller
 	while (1){
 		while (duo == false){
-			//Side Selection - WIP
-			if(partner.getDigital(ControllerDigital::up) == true){
-				side = 1;
-			} else if(partner.getDigital(ControllerDigital::up) == true){
-				side = -1;
-			}
+			//Drive - WIP
+			left = partner.getAnalog(ControllerAnalog::leftY);
+			right = partner.getAnalog(ControllerAnalog::rightY);
 
-			//Drive
-			left = master.getAnalog(ControllerAnalog::leftY);
-			right = master.getAnalog(ControllerAnalog::rightY);
+			left *= abs(left) / 100;
+			right *= abs(right) / 100;
 
-			if (side == 1){
-				left_pwr = left * side;
-				right_pwr = right * side;
-			} else {
-				left_pwr = right * side;
-				right_pwr = left * side;
-			}
+			drive.tank(left, right);
 
-			drive.tank(left_pwr, right_pwr);
-
-			//Flywheel
+			//flywheel
 			if (master.getDigital(ControllerDigital::Y) == true) {
 				flywheel.setTarget(200);
 			} else if (master.getDigital(ControllerDigital::B) == true) {
@@ -44,12 +31,21 @@ void opcontrol() {
 			}
 
 			//index
-			if (master.getDigital(ControllerDigital::R1) == true) {
+			if (master.getDigital(ControllerDigital::X) == true) {
 				index_mtr.moveVelocity(200);
-			} else if (master.getDigital(ControllerDigital::R2) == true) {
+			} else if (master.getDigital(ControllerDigital::A) == true) {
 				index_mtr.moveVelocity(-200);
 			} else {
 				index_mtr.moveVelocity(0);
+			}
+
+			//lift Position
+			if (master.getDigital(ControllerDigital::R1) == true) {
+				lift.setTarget(2);
+			} else if (master.getDigital(ControllerDigital::R2) == true) {
+				lift.setTarget(1);
+			} else {
+				lift.setTarget(0);
 			}
 
 			pros::delay(20);
@@ -58,26 +54,23 @@ void opcontrol() {
 
 		//2 controllers
 		while (duo == true) {
-			//Side Selection - WIP
-			if(partner.getDigital(ControllerDigital::up) == true){
-				side = 1;
-			} else if(partner.getDigital(ControllerDigital::up) == true){
-				side = -1;
-			}
-
 			//Drive - WIP
 			left = partner.getAnalog(ControllerAnalog::leftY);
 			right = partner.getAnalog(ControllerAnalog::rightY);
+
+			left *= abs(left) / 100;
+			right *= abs(right) / 100;
+
 			drive.tank(left, right);
 
-			//flywheel - OK
+			//flywheel
 			if (master.getDigital(ControllerDigital::Y) == true) {
 				flywheel.setTarget(200);
 			} else if (master.getDigital(ControllerDigital::B) == true) {
 				flywheel.setTarget(0);
 			}
 
-			//intake - WIP
+			//intake
 			if (master.getDigital(ControllerDigital::L1) == true) {
 				intake_mtr.moveVelocity(200);
 			} else if (master.getDigital(ControllerDigital::L2) == true) {
@@ -87,12 +80,21 @@ void opcontrol() {
 			}
 
 			//index
-			if (master.getDigital(ControllerDigital::R1) == true) {
+			if (master.getDigital(ControllerDigital::X) == true) {
 				index_mtr.moveVelocity(200);
-			} else if (master.getDigital(ControllerDigital::R2) == true) {
+			} else if (master.getDigital(ControllerDigital::A) == true) {
 				index_mtr.moveVelocity(-200);
 			} else {
 				index_mtr.moveVelocity(0);
+			}
+
+			//lift Position
+			if (master.getDigital(ControllerDigital::R1) == true) {
+				lift.setTarget(2);
+			} else if (master.getDigital(ControllerDigital::R2) == true) {
+				lift.setTarget(1);
+			} else {
+				lift.setTarget(0);
 			}
 
 			pros::delay(20);
