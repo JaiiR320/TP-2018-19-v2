@@ -26,16 +26,16 @@ extern Motor index_mtr;
 extern ChassisControllerIntegrated drive;
 extern AsyncMotionProfileController driveProfile;
 extern AsyncVelIntegratedController flywheel;
-extern AsyncLinearMotionProfileController lift;
+extern AsyncPosIntegratedController lift;
 
-//Motion Profile Testing
-void robot_kinematics(int seconds);
+void intake(int speed);
+void index(int speed);
+void flySet(int speed);
+void liftPos(int pos);
 
-void turn(double degrees, int speed);
+void driveTurn(int degrees, int side, int speed);
 
-void dist(float dist, int speed);
-
-void maxVel(int left, int right);
+void driveDist(float dist, int speed);
 
 void robotStop();
 

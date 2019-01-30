@@ -1,51 +1,27 @@
 #include "main.h"
 
+//Motion profiling
+//Point{FORWARD, LEFT, CCLOCK}
+
 void mainPathGen(){
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},  // Profile starting position, this will normally be (0, 0, 0)
-    Point{29_in, 0_ft, 0_deg}}, // The next point in the profile, 3 feet forward
-    "to_cap" // Profile name
+    Point{38_in, 0_ft, 0_deg}}, // The next point in the profile, 3 feet forward
+    "38" // Profile name
   );
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{10_in, 0_ft, 0_deg}},
-    "to_cap_ball"
+    Point{38_in, -7_in, 0_deg}},
+    "34 red"
   );
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{10_in, 0_ft, 0_deg}},
-    "unused"
+    Point{38_in, 7_in, 0_deg}},
+    "34 blue"
   );
-  driveProfile.generatePath({
+  driveProfile.generatePath({ // generate 28 inch path
     Point{0_ft, 0_ft, 0_deg},
-    Point{6_in, 0_ft, 0_deg}},
-    "6_in"
-  );
-  driveProfile.generatePath({
-    Point{0_ft, 0_ft, 0_deg},
-    Point{14_in, 0_ft, 0_deg}},
-    "middle_aim"
-  );
-  driveProfile.generatePath({
-    Point{0_ft, 0_ft, 0_deg},
-    Point{10_in, 0_ft, 0_deg}},
-    "towards_flag"
-  );
-  driveProfile.generatePath({
-    Point{0_ft, 0_ft, 0_deg},
-    Point{6_in, 0_ft, 0_deg}},
-    "flag_backup"
-  );
-
-  driveProfile.generatePath({
-    Point{0_ft, 0_ft, 0_deg},  // Profile starting position, this will normally be (0, 0, 0)
-    Point{2_ft, 0_ft, 0_deg}}, // The next point in the profile, 3 feet forward
-    "2_ft" // Profile name
-  );
-
-  driveProfile.generatePath({
-    Point{0_ft, 0_ft, 0_deg},  // Profile starting position, this will normally be (0, 0, 0)
-    Point{1_ft, 1_ft, 90_deg}}, // The next point in the profile, 3 feet forward
-    "circle" // Profile name
+    Point{28_in, 0_ft, 0_deg}},
+    "28"
   );
 }

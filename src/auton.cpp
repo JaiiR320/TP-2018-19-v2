@@ -1,188 +1,82 @@
 #include "main.h"
 
-int Acolor = 0;
-int Aauton = 0;
+using namespace pros;
 
 //main Auton
 void mainAuton(int side){
-  //3 flags + cap and mid low flag
-  flywheel.setTarget(200);
-  intake_mtr.moveVelocity(200); // start intake
+  flySet(200);
+  intake(200);
 
-  dist(39.0, 200);
-  pros::delay(1700); // cap
-
-  dist(-36.0, 200);
-   pros::delay(1700); // back up
-  if(Acolor == -1){
-    dist(-4, 100);
-    pros::delay(700);
+  driveProfile.setTarget("38");
+  driveProfile.waitUntilSettled();
+  drive.setMaxVelocity(175);
+  if (side == -1) {
+    driveProfile.setTarget("34 red", true);
+    driveProfile.waitUntilSettled();
+  } else {
+    driveProfile.setTarget("34 blue", true);
+    driveProfile.waitUntilSettled();
   }
+  delay(500);
+  drive.setMaxVelocity(200);
 
+  driveTurn(90, side, 85);
 
-  turn(side * 90, 150); // turn towards flags
-  pros::delay(500);
+  delay(1400);
+  intake(0);
+  index(200); // shoot
+  delay(700);
+  index(-1);
+  delay(20);
 
-  dist(4, 100); // move closer for top flag
-  pros::delay(500);
+  intake(200); // start pushing ball into indexer
 
-  intake_mtr.moveVelocity(0); // shoot
-  index_mtr.moveVelocity(200);
-  pros::delay(400);
-  index_mtr.moveVelocity(0);
+  driveProfile.setTarget("28");
+  driveProfile.waitUntilSettled(); // aim middle
 
-  dist(21, 100); // aim for middle flag
-  pros::delay(650);
+  index(200); // 2nd shoot
+  delay(750);
 
-  intake_mtr.moveVelocity(200);
-  index_mtr.moveVelocity(200); // shoot
-  pros::delay(700);
+  flySet(0); // stop shooting devices
+  intake(0);
+  index(0);
 
-  intake_mtr.moveVelocity(0);
-  index_mtr.moveVelocity(0); // stop shooting system
-  flywheel.setTarget(0);
+  driveProfile.removePath("38"); // remove old paths for memory
+  driveProfile.removePath("34 red"); // remove old paths for memory
+  driveProfile.removePath("34 blue"); // remove old paths for memory
 
-  dist(32, 100);
-  pros::delay(600);
-  turn(side * -50, 100); // turn into flag
-  pros::delay(400);
-  dist(6, 100);
-  pros::delay(600);
-  dist(-6, 100);
-  pros::delay(600);
-  turn(side * 50, 100);
-  pros::delay(400);
-  dist(-42, 100);
-  pros::delay(600);
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},
+    Point{18_in, 0_ft, 0_deg}},
+    "18"
+  );
 
-  drive.setMaxVelocity(100);
-  turn(side * -105, 150);
-  pros::delay(800);
-  if (Acolor == 1) {
-    turn(side * -20, 100); // turn into flag
-    pros::delay(400);
-  }
+  driveTurn(14, side, 100);
+  delay(500);
+  driveProfile.setTarget("18");
+  driveProfile.waitUntilSettled();
+  driveProfile.setTarget("18", true); // move into flag
+  driveProfile.waitUntilSettled();
 
-  intake_mtr.moveVelocity(-200); // drive into cap & flip
-  dist(24, 50);
-  pros::delay(2000);
-  drive.stop();
-  Aauton = 0;
-  Acolor = 0;
-  pros::delay(10000);
+  driveTurn(-112, side, 100);
+  delay(800);
+
+  intake(-200);
+  drive.setMaxVelocity(150);
+  driveProfile.setTarget("28");
+  driveProfile.waitUntilSettled();
+
+  driveTurn(85, side, 100);
+  driveDist(36, 200);
+  delay(3000);
+
   robotStop();
 }
 
+void backAuton(int side){
 
-
-
-
-//Second Auton
-void secondAuton(int side){
-  //far side
-  //3 flags + cap and mid low flag
-  intake_mtr.moveVelocity(200); // start intake
-  index_mtr.moveVelocity(200);
-
-  dist(39.0, 200);
-  pros::delay(1700); // cap
-
-  turn(side * -85, 100);
-  pros::delay(700);
-  intake_mtr.moveVelocity(-200); // flip cap
-  dist(24, 50);
-  pros::delay(700);
-
-  pros::delay(99999);
-  robotStop();
-  pros::delay(99999);
-
-  Acolor = 0;
-  Aauton = 0;
 }
 
+void skillsAuton(int side){
 
-
-
-
-//Cheese Auton
-void safeAuton(int side){
-  intake_mtr.moveVelocity(200); // start intake
-  index_mtr.moveVelocity(200);
-
-  dist(39.0, 200);
-  pros::delay(1700); // cap
-
-  turn(side * -85, 100);
-  pros::delay(700);
-  intake_mtr.moveVelocity(-200); // flip cap
-  dist(24, 50);
-  pros::delay(700);
-
-  robotStop();
-  /*
-  flywheel.setTarget(100);
-  intake_mtr.moveVelocity(200); // start intake
-
-  driveProfile.setTarget("to_cap");
-  driveProfile.waitUntilSettled();
-  driveProfile.setTarget("to_cap_ball");
-  driveProfile.waitUntilSettled(); // move to first cap
-  pros::delay(500);
-
-  intake_mtr.moveVelocity(0);
-  index_mtr.moveVelocity(200); // shoot behind othor robot
-  pros::delay(700);
-  index_mtr.moveVelocity(0);
-  flywheel.setTarget(200);
-
-  intake_mtr.moveVelocity(200);
-  driveProfile.setTarget("middle_aim", true); // line up with cap
-  driveProfile.waitUntilSettled();
-
-  drive.setMaxVelocity(100);
-  if(side == -1){
-    drive.turnAngle(-86_deg); // turn towards cap
-  } else {
-    drive.turnAngle(86_deg);
-  }
-  pros::delay(700);
-  drive.setMaxVelocity(150);
-
-  intake_mtr.moveVelocity(-200);
-  driveProfile.setTarget("6_in");
-  driveProfile.waitUntilSettled();
-  driveProfile.setTarget("6_in", true); // flip cap
-  driveProfile.waitUntilSettled();
-  intake_mtr.moveVelocity(0);
-
-  drive.setMaxVelocity(100);
-  if(side == -1){
-    drive.turnAngle(-86_deg); // turn towards cap
-  } else {
-    drive.turnAngle(86_deg);
-  }
-  pros::delay(700);
-  drive.setMaxVelocity(150);
-
-  driveProfile.setTarget("2_ft", true);
-  driveProfile.waitUntilSettled();
-
-  drive.setMaxVelocity(100);
-  if(side == -1){
-    drive.turnAngle(86_deg); // turn towards cap
-  } else {
-    drive.turnAngle(-86_deg);
-  }
-  pros::delay(700);
-  drive.setMaxVelocity(150);
-
-  index_mtr.moveVelocity(200);
-  intake_mtr.moveVelocity(200);
-
-  robotStop();
-
-  Acolor = 0;
-  Aauton = 0;
-  */
 }

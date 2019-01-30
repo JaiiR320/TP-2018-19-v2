@@ -2,15 +2,13 @@
 
 void opcontrol() {
 	float left, right;
+	lift.tarePosition();
 	//1 controller
 	while (1){
 		while (duo == false){
 			//Drive - WIP
-			left = partner.getAnalog(ControllerAnalog::leftY);
-			right = partner.getAnalog(ControllerAnalog::rightY);
-
-			left *= abs(left) / 100;
-			right *= abs(right) / 100;
+			left = master.getAnalog(ControllerAnalog::leftY);
+			right = master.getAnalog(ControllerAnalog::rightY);
 
 			drive.tank(left, right);
 
@@ -39,12 +37,15 @@ void opcontrol() {
 				index_mtr.moveVelocity(0);
 			}
 
-			//lift Position
+			//lift
 			if (master.getDigital(ControllerDigital::R1) == true) {
-				lift.setTarget(2);
+				lift.setMaxVelocity(150);
+				lift.setTarget(900);
 			} else if (master.getDigital(ControllerDigital::R2) == true) {
-				lift.setTarget(1);
+				lift.setMaxVelocity(85);
+				lift.setTarget(220);
 			} else {
+				lift.setMaxVelocity(180);
 				lift.setTarget(0);
 			}
 
@@ -58,10 +59,14 @@ void opcontrol() {
 			left = partner.getAnalog(ControllerAnalog::leftY);
 			right = partner.getAnalog(ControllerAnalog::rightY);
 
-			left *= abs(left) / 100;
-			right *= abs(right) / 100;
+			drive.tank(left * .9, right * .9);
 
-			drive.tank(left, right);
+			while(partner.getDigital(ControllerDigital::R1) == true){
+				left_back.moveRelative(0, 0);
+				left_front.moveRelative(0, 0);
+				right_back.moveRelative(0, 0);
+				right_front.moveRelative(0, 0);
+		  }
 
 			//flywheel
 			if (master.getDigital(ControllerDigital::Y) == true) {
@@ -90,10 +95,13 @@ void opcontrol() {
 
 			//lift Position
 			if (master.getDigital(ControllerDigital::R1) == true) {
-				lift.setTarget(2);
+				lift.setMaxVelocity(150);
+				lift.setTarget(900);
 			} else if (master.getDigital(ControllerDigital::R2) == true) {
-				lift.setTarget(1);
+				lift.setMaxVelocity(85);
+				lift.setTarget(220);
 			} else {
+				lift.setMaxVelocity(180);
 				lift.setTarget(0);
 			}
 

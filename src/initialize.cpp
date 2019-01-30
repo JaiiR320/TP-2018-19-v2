@@ -4,15 +4,17 @@
 //480 x 272 pixels
 
 //Bool if using 2 or 1 contoller
+int Acolor = 1;
+int Aauton = -1;
 bool duo = true;
 
 static lv_res_t side_sel(lv_obj_t * sideBTNS, const char *txt){
 	//occurs when side button are toggled
 	if (strcmp(txt, "Main") == 0) {
 		Aauton = 1;
-	} else if (strcmp(txt, "Second") == 0){
+	} else if (strcmp(txt, "Back") == 0){
 		Aauton = 2;
-	}	else if(strcmp(txt, "Safe") == 0){
+	}	else if(strcmp(txt, "Skills") == 0){
 		Aauton = 3;
 	} else {
 		Aauton = 0;
@@ -28,7 +30,7 @@ static lv_res_t col_sel(lv_obj_t * colorBTNS, const char *txt){
 	} else if (strcmp(txt, "Blue") == 0){
 		Acolor = 1;
 	}	else {
-		Acolor = 1;
+		Acolor = -1;
 	}
 
   return LV_RES_OK; /*Return OK because the button matrix is not deleted*/
@@ -47,7 +49,7 @@ static lv_res_t duo_sel(lv_obj_t * duoBTNS, const char *txt){
   return LV_RES_OK; /*Return OK because the button matrix is not deleted*/
 }
 
-static const char * btnm_side[] = {"Main", "Second", "Safe", ""};
+static const char * btnm_side[] = {"Main", "Back", "Skills", ""};
 static const char * btnm_color[] = {"Red", "Blue", ""};
 static const char * btnm_duo[] = {"Duo", "Solo", ""};
 
@@ -123,9 +125,6 @@ void initialize() {
 		lv_btnm_set_toggle(duoBTNS, true, i);
 	}
 	mainPathGen();
-
-	right_front.setVoltageLimit(11100);
-	right_back.setVoltageLimit(11100);
 }
 
 void disabled() {

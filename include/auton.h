@@ -9,7 +9,7 @@ extern int Acolor;
 extern bool duo;
 
 void mainAuton(int side);
-void secondAuton(int side);
-void safeAuton(int side);
+void backAuton(int side);
+void skillsAuton(int side);
 
 #endif

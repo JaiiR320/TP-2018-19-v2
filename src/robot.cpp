@@ -4,10 +4,10 @@
 Controller master = ControllerId::master;
 Controller partner = ControllerId::partner;
 
-Motor left_front = 1_mtr;
-Motor left_back = 2_mtr;
-Motor right_front = 3_rmtr;
-Motor right_back = 4_rmtr;
+Motor left_front = 2_mtr;
+Motor left_back = 1_mtr;
+Motor right_front = 4_rmtr;
+Motor right_back = 3_rmtr;
 
 Motor flywheel_mtr = 6_rmtr;
 
@@ -22,7 +22,7 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 	{left_front, left_back},
 	{right_front, right_back},
 	AbstractMotor::gearset::green,
-	{4_in, 14.25_in}
+	{4_in, 14.5_in}
 );
 
 //Motion profile
@@ -33,89 +33,54 @@ AsyncMotionProfileController driveProfile = AsyncControllerFactory::motionProfil
 	drive //chassis
 );
 
-//lift control
-AsyncLinearMotionProfileController lift = AsyncControllerFactory::linearMotionProfile(
-	1.06,
-	4,
-	10,
-	10
-);
-
 //flywheel control
 AsyncVelIntegratedController flywheel = AsyncControllerFactory::velIntegrated(flywheel_mtr);
 
-void turn(double degrees, int speed){ //Pos degrees turns right
-	double arclength = 2 * 3.1415926 * 7 * (degrees / 360);
+//lift control
+AsyncPosIntegratedController lift = AsyncControllerFactory::posIntegrated(lift_mtr);
+
+void driveTurn(int degrees, int side, int speed){ //Pos degrees turns right
+	double arclength = 2 * 3.1415926 * 7.25 * (double(degrees) / 360);
 
 	double dist = (arclength / 12.566) * 360;
 
-	left_front.moveRelative(dist, speed);
+  dist *= side;
+
 	left_back.moveRelative(dist, speed);
-	right_front.moveRelative(-dist, speed);
+	left_front.moveRelative(dist, speed);
 	right_back.moveRelative(-dist, speed);
+	right_front.moveRelative(-dist, speed);
 }
 
-void dist(float dist, int speed){//in inches
+void driveDist(float dist, int speed){//in inches
   dist = ((dist / 12.566) * 360);
-  //encoder degrees = pathlength / circumferemce times 1 rotation
-  //pathlength = encoder deg / 1 rotation times circumference
 
-  left_front.moveRelative(dist + 12, speed);
-	left_back.moveRelative(dist + 12, speed);
+  left_front.moveRelative(dist, speed);
+	left_back.moveRelative(dist, speed);
 	right_front.moveRelative(dist, speed);
 	right_back.moveRelative(dist, speed);
 }
 
-//Motion Profiling Testing
-void robot_kinematics(int seconds){
-	double pos[seconds * 100];
-	double vel[seconds * 100];
-	double acl[seconds * 100];
-	double jrk[seconds * 100];
+void intake(int speed){
+	intake_mtr.moveVelocity(speed);
+}
 
-	double max_vel = 0;
-	double max_acl = 0;
-	double max_jrk = 0;
-	vel[0] = 0;
-    acl[0] = 0;
-	jrk[0] = 0;
+void index(int speed){
+	index_mtr.moveVelocity(speed);
+}
 
-	drive.forward(1);
+void flySet(int speed){
+	flywheel.setTarget(speed);
+}
 
-	for (size_t i = 1; i < seconds * 100; i++) {
-		pos[i] = ((left_back.getPosition() / 360) * 0.31917);
-		pros::delay(10);
+void liftPos(int pos){
+	if (pos == 2) {
+		lift.setTarget(900);
+	} else if (pos == 1) {
+		lift.setTarget(220);
+	} else if (pos == 0) {
+		lift.setTarget(0);
 	}
-
-	drive.stop();
-
-	for (size_t i = 1; i < seconds * 100; i++) {
-		vel[i] = (pos[i] - pos[i - 1]) / .01;
-		if (vel[i] > max_vel) {
-			max_vel = vel[i];
-  		}
-		pros::delay(10);
-	}
-
-	for (size_t i = 1; i < seconds * 100; i++) {
-		acl[i] = (vel[i] - vel[i - 1]) / .01;
-		if (acl[i] > max_acl) {
-			max_acl = acl[i];
-		}
-		pros::delay(10);
-	}
-
-	for (size_t i = 1; i < seconds * 100; i++) {
-		jrk[i] = (acl[i] - acl[i - 1]) / .01;
-		if (jrk[i] > max_jrk) {
-			max_jrk = jrk[i];
-		}
-		pros::delay(10);
-	}
-
-	std::cout << "Max Vel:  " << max_vel << '\n';
-	std::cout << "Max Acl:  " << max_acl << '\n';
-	std::cout << "Max Jrk:  " << max_jrk << '\n';
 }
 
 //Stop entire robot
