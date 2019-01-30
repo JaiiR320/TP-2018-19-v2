@@ -174,13 +174,13 @@ void skillsAuton(int side){
 
   driveTurn(-90, side, 100); // turn towards cap
   delay(650);
-  driveProfile.removePath("24")
+  driveProfile.removePath("24");
 
   driveProfile.setTarget("36");
   driveProfile.waitUntilSettled();
 
   driveProfile.setTarget("12", true);
-  droveProfile.waitUntilSettled();
+  driveProfile.waitUntilSettled();
 
   driveProfile.removePath("12");
   driveProfile.removePath("36");
@@ -216,7 +216,7 @@ void skillsAuton(int side){
 
   driveTurn(-90, side, 100);
 
-
+  
 
 
 

@@ -127,7 +127,7 @@ void initialize() {
 	if (Aauton != 3) {
 		mainPathGen();
 	} else {
-		
+		skillsPathGen();
 	}
 }
 
