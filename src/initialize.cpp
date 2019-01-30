@@ -4,8 +4,8 @@
 //480 x 272 pixels
 
 //Bool if using 2 or 1 contoller
-int Acolor = 1;
-int Aauton = -1;
+int Acolor = -1;
+int Aauton = 1;
 bool duo = true;
 
 static lv_res_t side_sel(lv_obj_t * sideBTNS, const char *txt){
@@ -124,7 +124,11 @@ void initialize() {
 	for (std::size_t i = 0; i < 1; i++){
 		lv_btnm_set_toggle(duoBTNS, true, i);
 	}
-	mainPathGen();
+	if (Aauton != 3) {
+		mainPathGen();
+	} else {
+		
+	}
 }
 
 void disabled() {

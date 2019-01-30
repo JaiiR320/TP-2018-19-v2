@@ -6,4 +6,6 @@ using namespace okapi;
 
 void mainPathGen();
 
+void skillsPathGen();
+
 #endif

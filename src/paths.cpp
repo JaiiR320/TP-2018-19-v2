@@ -25,3 +25,21 @@ void mainPathGen(){
     "28"
   );
 }
+
+void skillsPathGen(){
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},
+    Point{38_in, 0_ft, 0_deg}},
+    "38"
+  );
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},
+    Point{34_in, 0_ft, 0_deg}},
+    "34"
+  );
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},
+    Point{48_in, 0_ft, 0_deg}}, // gen far path
+    "far"
+  );
+}
