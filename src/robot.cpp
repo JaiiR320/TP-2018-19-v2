@@ -61,6 +61,36 @@ void driveDist(float dist, int speed){//in inches
 	right_back.moveRelative(dist, speed);
 }
 
+void driveArc(double radius, double exit_angle, int side, int max_speed){
+	exit_angle *= 3.1415926 / 180.0; //1.5 for 90 deg
+	//-40 rad =
+  double arc_left = (radius + (side * 7.325)) * exit_angle;
+  double arc_right = (radius + (side * -7.325)) * exit_angle;
+
+	arc_left = (arc_left / 12.566) * 360;
+	arc_right = (arc_right / 12.566) * 360;
+
+	double Lspeed, Rspeed;
+
+	if(abs(arc_left) > abs(arc_right)){
+		Lspeed = max_speed;
+		Rspeed = (arc_right / arc_left) * max_speed;
+	} else if(abs(arc_left) > abs(arc_right)){
+		Rspeed = max_speed;
+		Lspeed = (arc_left / arc_right) * max_speed;
+	}
+
+	std::cout << "arc_left:  " << arc_left << '\n';
+	std::cout << "arc_right: " << arc_right << '\n';
+	std::cout << "Lspeed:    " << Lspeed << '\n';
+	std::cout << "Rspeed:    " << Rspeed << '\n';
+
+	left_back.moveRelative(arc_left, Lspeed);
+	left_front.moveRelative(arc_left, Lspeed);
+	right_back.moveRelative(arc_right, Rspeed);
+	right_front.moveRelative(arc_right, Rspeed);
+}
+
 void intake(int speed){
 	intake_mtr.moveVelocity(speed);
 }

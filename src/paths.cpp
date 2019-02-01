@@ -34,8 +34,8 @@ void skillsPathGen(){
   );
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{34_in, 0_ft, 0_deg}},
-    "34"
+    Point{33_in, 0_ft, 0_deg}},
+    "33"
   );
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},

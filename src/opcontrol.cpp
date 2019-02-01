@@ -3,6 +3,13 @@
 void opcontrol() {
 	float left, right;
 	lift.tarePosition();
+
+	driveProfile.generatePath({ // generate 28 inch path
+		Point{0_ft, 0_ft, 0_deg},
+		Point{24_in, 0_ft, 0_deg}},
+		"shotDrive"
+	);
+
 	//1 controller
 	while (1){
 		while (duo == false){
@@ -11,6 +18,24 @@ void opcontrol() {
 			right = master.getAnalog(ControllerAnalog::rightY);
 
 			drive.tank(left, right);
+
+			//macros
+			while(partner.getDigital(ControllerDigital::down) == true){
+				left_back.moveRelative(0, 0);
+				left_front.moveRelative(0, 0);
+				right_back.moveRelative(0, 0);
+				right_front.moveRelative(0, 0);
+			}
+
+			while(partner.getDigital(ControllerDigital::up) == true){
+				driveProfile.setTarget("shotDrive");
+				intake(200);
+				index(200); // shoot
+				while(partner.getDigital(ControllerDigital::up) == true){
+					pros::delay(20);
+				}
+				pros::delay(20);
+			}
 
 			//flywheel
 			if (master.getDigital(ControllerDigital::Y) == true) {
@@ -52,8 +77,10 @@ void opcontrol() {
 			pros::delay(20);
 		}
 
+		/*
+		DUAL DRIVER
+		*/
 
-		//2 controllers
 		while (duo == true) {
 			//Drive - WIP
 			left = partner.getAnalog(ControllerAnalog::leftY);
@@ -61,12 +88,23 @@ void opcontrol() {
 
 			drive.tank(left * .9, right * .9);
 
-			while(partner.getDigital(ControllerDigital::R1) == true){
+			//macros
+			while(partner.getDigital(ControllerDigital::R2) == true){
 				left_back.moveRelative(0, 0);
 				left_front.moveRelative(0, 0);
 				right_back.moveRelative(0, 0);
 				right_front.moveRelative(0, 0);
 		  }
+
+			while(partner.getDigital(ControllerDigital::R1) == true){
+				driveProfile.setTarget("shotDrive");
+				intake(200);
+				index(200); // shoot
+				while(partner.getDigital(ControllerDigital::R1) == true){
+					pros::delay(20);
+				}
+				pros::delay(20);
+			}
 
 			//flywheel
 			if (master.getDigital(ControllerDigital::Y) == true) {
@@ -95,7 +133,7 @@ void opcontrol() {
 
 			//lift Position
 			if (master.getDigital(ControllerDigital::R1) == true) {
-				lift.setMaxVelocity(150);
+				lift.setMaxVelocity(160);
 				lift.setTarget(900);
 			} else if (master.getDigital(ControllerDigital::R2) == true) {
 				lift.setMaxVelocity(85);

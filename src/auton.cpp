@@ -4,6 +4,7 @@ using namespace pros;
 
 //main Auton
 void mainAuton(int side){
+  mainPathGen();
   flySet(200);
   intake(200);
 
@@ -66,7 +67,8 @@ void mainAuton(int side){
   driveProfile.setTarget("28");
   driveProfile.waitUntilSettled();
 
-  driveTurn(85, side, 100);
+  driveTurn(65, side, 100);
+  delay(650);
   driveDist(36, 200);
   delay(3000);
 
@@ -74,32 +76,45 @@ void mainAuton(int side){
 }
 
 void backAuton(int side){
+  driveArc(-48, -90, side, 200);
+  delay(5000);
 
+  while (1) {
+    robotStop();
+  }
 }
 
+/*
+  SKILLS
+*/
+
 void skillsAuton(int side){
+  skillsPathGen();
+
   flySet(200);
   intake(200);
 
   driveProfile.setTarget("38");
   driveProfile.waitUntilSettled(); // to cap
-
-  driveProfile.setTarget("34", true); // back up
+  delay(20);
+  driveProfile.setTarget("33", true); // back up
   driveProfile.waitUntilSettled();
 
   drive.setMaxVelocity(200);
-  driveTurn(90, side, 85);
+  driveTurn(90, side, 85); // turn
+  delay(700);
 
   driveProfile.removePath("38");
   driveProfile.removePath("34");
   delay(700);
 
+  drive.setMaxVelocity(150);
   driveProfile.setTarget("far");
 
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{28_in, 0_ft, 0_deg}}, // gen far path
-    "28"
+    Point{26_in, 0_ft, 0_deg}}, // gen far path
+    "26"
   );
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
@@ -120,7 +135,7 @@ void skillsAuton(int side){
 
   intake(200); // start pushing ball into indexer
 
-  driveProfile.setTarget("28");
+  driveProfile.setTarget("26");
   driveProfile.waitUntilSettled(); // aim middle
 
   index(200); // 2nd shoot
@@ -143,91 +158,79 @@ void skillsAuton(int side){
 
   intake(-200);
   drive.setMaxVelocity(150);
-  driveProfile.setTarget("28"); // flip cap
+  driveProfile.setTarget("26"); // flip cap
   driveProfile.removePath("18"); // remove 18
   driveProfile.waitUntilSettled();
 
   driveProfile.removePath("28");
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{24_in, 0_ft, 0_deg}},
-    "24"
+    Point{36_in, 0_ft, 0_deg}},
+    "36"
   );
 
   driveTurn(-82, side, 100); // turn towards platform
   delay(800);
 
-  driveProfile.setTarget("24");
+  driveProfile.setTarget("36");
   intake(200);
-  driveProfile.generatePath({ // drive towards platform
-    Point{0_ft, 0_ft, 0_deg},
-    Point{36_in, 0_ft, 0_deg}},
-    "36"
-  );
-  driveProfile.generatePath({
-    Point{0_ft, 0_ft, 0_deg},
-    Point{12_in, 0_ft, 0_deg}},
-    "12"
-  );
 
   driveProfile.waitUntilSettled();
 
-  driveTurn(-90, side, 100); // turn towards cap
+  driveTurn(90, side, 100); // turn towards cap
   delay(650);
   driveProfile.removePath("24");
 
   driveProfile.setTarget("36");
   driveProfile.waitUntilSettled();
 
-  driveProfile.setTarget("12", true);
-  driveProfile.waitUntilSettled();
-
-  driveProfile.removePath("12");
   driveProfile.removePath("36");
 
-  driveTurn(-90, side, 100); // turn towards flags
+  driveTurn(90, side, 100); // turn towards flags
   delay(650);
 
   index(200);
-  delay(1000);
+  intake(200);
+  delay(1500);
 
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{4_ft, 0_ft, 0_deg}},
-    "4"
+    Point{44_in, 0_ft, 0_deg}},
+    "44"
   );
 
   flySet(0);
   index(0);
   intake(0);
 
-  driveProfile.setTarget("4");
+  driveProfile.setTarget("44");
   driveProfile.waitUntilSettled(); // move into bottom flag
 
-  driveProfile.removePath("4");
-  driveProfile.generatePath({
-    Point{0_ft, 0_ft, 0_deg},
-    Point{4_ft, 4_ft, -90_deg}},
-    "bigturn"
-  );
-
-  driveProfile.setTarget("bigturn");
-  driveProfile.waitUntilSettled();
+  driveProfile.setTarget("44", true);
+  driveProfile.waitUntilSettled(); // back up
 
   driveTurn(-90, side, 100);
+  delay(650);
 
-  
+  driveProfile.setTarget("44", true);
+  driveProfile.waitUntilSettled(); // to wall
 
+  driveTurn(-90, side, 100);
+  delay(650);
 
+  driveDist(24, 100);
+  delay(1750);
 
+  driveTurn(90, side, 100);
+  delay(650);
 
+  driveDist(68, 150);
+  delay(3750);
 
+  left_back.moveRelative(0, 0);
+  left_front.moveRelative(0, 0);
+  right_back.moveRelative(0, 0);
+  right_front.moveRelative(0, 0);
 
-
-
-
-
-
-
-
+  robotStop();
 }

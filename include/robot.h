@@ -37,6 +37,8 @@ void driveTurn(int degrees, int side, int speed);
 
 void driveDist(float dist, int speed);
 
+void driveArc(double radius, double exit_angle, int side, int max_speed);
+
 void robotStop();
 
 #endif
