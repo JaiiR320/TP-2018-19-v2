@@ -76,8 +76,42 @@ void mainAuton(int side){
 }
 
 void backAuton(int side){
-  driveArc(-48, -88, side, 200);
-  delay(5000);
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},
+    Point{38_in, 0_ft, 0_deg}},
+    "38"
+  );
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},
+    Point{18_in, 0_ft, 0_deg}},
+    "18"
+  );
+
+  flySet(165);
+  intake(200);
+
+  driveProfile.setTarget("38");
+  driveProfile.waitUntilSettled();
+
+  driveProfile.setTarget("38");
+  driveProfile.waitUntilSettled();
+
+  driveTurn(75, side, 100);
+  delay(650);
+
+  index(200);
+  delay(3500);
+
+  driveTurn(15, side, 100);
+  delay(650);
+
+  driveProfile.setTarget("18");
+  driveProfile.waitUntilSettled();
+
+  left_back.moveRelative(0, 0);
+  left_front.moveRelative(0, 0);
+  right_back.moveRelative(0, 0);
+  right_front.moveRelative(0, 0);
 
   while (1) {
     robotStop();
@@ -285,11 +319,17 @@ void skillsAuton(int side){
 
   driveProfile.removePath("26");
 
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},
+    Point{82_in, 0_ft, 0_deg}},
+    "82"
+  );
+
   driveTurn(88, side, 100);
   delay(650);
 
-  driveDist(82, 150);
-  delay(3750);
+  driveProfile.setTarget("82");
+  driveProfile.waitUntilSettled();
 
   left_back.moveRelative(0, 0);
   left_front.moveRelative(0, 0);
