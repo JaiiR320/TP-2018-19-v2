@@ -39,7 +39,7 @@ void skillsPathGen(){
   );
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{48_in, 0_ft, 0_deg}}, // gen far path
+    Point{60_in, 0_ft, 0_deg}}, // gen far path
     "far"
   );
 }

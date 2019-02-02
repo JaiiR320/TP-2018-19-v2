@@ -20,18 +20,18 @@ void opcontrol() {
 			drive.tank(left, right);
 
 			//macros
-			while(partner.getDigital(ControllerDigital::down) == true){
+			while(master.getDigital(ControllerDigital::down) == true){
 				left_back.moveRelative(0, 0);
 				left_front.moveRelative(0, 0);
 				right_back.moveRelative(0, 0);
 				right_front.moveRelative(0, 0);
 			}
 
-			while(partner.getDigital(ControllerDigital::up) == true){
+			while(master.getDigital(ControllerDigital::up) == true){
 				driveProfile.setTarget("shotDrive");
 				intake(200);
 				index(200); // shoot
-				while(partner.getDigital(ControllerDigital::up) == true){
+				while(master.getDigital(ControllerDigital::up) == true){
 					pros::delay(20);
 				}
 				pros::delay(20);
