@@ -1,21 +1,25 @@
 #include "main.h"
 
+double bot_width = 11.75 / 2;
+
 //Controllers
 Controller master = ControllerId::master;
 Controller partner = ControllerId::partner;
 
-Motor left_front = 2_mtr;
-Motor left_back = 1_mtr;
-Motor right_front = 4_rmtr;
-Motor right_back = 3_rmtr;
+Motor left_front = 2_rmtr;
+Motor left_back = 1_rmtr;
+Motor right_front = 4_mtr;
+Motor right_back = 3_mtr;
 
-Motor flywheel_mtr = 6_rmtr;
+Motor flywheel_mtr = 6_mtr;
 
 Motor lift_mtr = 10_mtr;
 
 Motor intake_mtr = 7_mtr;
 
 Motor index_mtr = 9_mtr;
+
+ADIGyro gyro(8, 1);
 
 //drive train control
 ChassisControllerIntegrated drive = ChassisControllerFactory::create(
@@ -40,6 +44,27 @@ AsyncVelIntegratedController flywheel = AsyncControllerFactory::velIntegrated(fl
 AsyncPosIntegratedController lift = AsyncControllerFactory::posIntegrated(lift_mtr);
 
 void driveTurn(int degrees, int side, int speed){ //Pos degrees turns right
+	bool running = true;
+
+	double error = 0;
+	double out = 0;
+
+	degrees *= side;
+
+	while(running){
+		error = degrees - gyro.get();
+
+		out = (error / degrees) * speed;
+
+		drive.tank(out, -out);
+
+		pros::delay(20);
+	}
+	drive.tank(0, 0);
+	pros::delay(200);
+	gyro.reset();
+
+/*
 	double arclength = 2 * 3.1415926 * 7.25 * (double(degrees) / 360);
 
 	double dist = (arclength / 12.566) * 360;
@@ -50,6 +75,7 @@ void driveTurn(int degrees, int side, int speed){ //Pos degrees turns right
 	left_front.moveRelative(dist, speed);
 	right_back.moveRelative(-dist, speed);
 	right_front.moveRelative(-dist, speed);
+*/
 }
 
 void driveDist(float dist, int speed){//in inches

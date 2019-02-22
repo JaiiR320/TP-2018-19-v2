@@ -27,21 +27,27 @@ void opcontrol() {
 				right_front.moveRelative(0, 0);
 			}
 
-			while(master.getDigital(ControllerDigital::up) == true){
+/*
+			while(partner.getDigital(ControllerDigital::up) == true){
 				driveProfile.setTarget("shotDrive");
 				intake(200);
 				index(200); // shoot
-				while(master.getDigital(ControllerDigital::up) == true){
+				while(partner.getDigital(ControllerDigital::up) == true){
 					pros::delay(20);
 				}
 				pros::delay(20);
 			}
+*/
 
 			//flywheel
 			if (master.getDigital(ControllerDigital::Y) == true) {
 				flywheel.setTarget(200);
 			} else if (master.getDigital(ControllerDigital::B) == true) {
 				flywheel.setTarget(0);
+			}
+
+			if (master.getDigital(ControllerDigital::up) == true){
+				flywheel.setTarget(140);
 			}
 
 			//intake
@@ -74,6 +80,8 @@ void opcontrol() {
 				lift.setTarget(0);
 			}
 
+			std::cout << "Gyro: " << gyro.get() << '\n';
+
 			pros::delay(20);
 		}
 
@@ -88,7 +96,7 @@ void opcontrol() {
 
 			drive.tank(left * .9, right * .9);
 
-			//macros
+			//
 			while(partner.getDigital(ControllerDigital::R2) == true){
 				left_back.moveRelative(0, 0);
 				left_front.moveRelative(0, 0);
@@ -111,6 +119,9 @@ void opcontrol() {
 				flywheel.setTarget(200);
 			} else if (master.getDigital(ControllerDigital::B) == true) {
 				flywheel.setTarget(0);
+			}
+			if (master.getDigital(ControllerDigital::up) == true){
+				flywheel.setTarget(140);
 			}
 
 			//intake

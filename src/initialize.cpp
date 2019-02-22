@@ -5,8 +5,8 @@
 
 //Bool if using 2 or 1 contoller
 int Acolor = -1;
-int Aauton = 1;
-bool duo = true;
+int Aauton = 2;
+bool duo = false;
 
 static lv_res_t side_sel(lv_obj_t * sideBTNS, const char *txt){
 	//occurs when side button are toggled

@@ -22,6 +22,8 @@ extern Motor intake_mtr;
 
 extern Motor index_mtr;
 
+extern ADIGyro gyro;
+
 //Okapi controllers
 extern ChassisControllerIntegrated drive;
 extern AsyncMotionProfileController driveProfile;

@@ -21,7 +21,7 @@ void mainAuton(int side){
   delay(500);
   drive.setMaxVelocity(200);
 
-  driveTurn(88, side, 85);
+  driveTurn(89, side, 85);
 
   delay(1400);
   intake(0);
@@ -59,29 +59,68 @@ void mainAuton(int side){
   driveProfile.setTarget("18", true); // move into flag
   driveProfile.waitUntilSettled();
 
-  driveTurn(-112, side, 100);
+  driveTurn(-105, side, 100);
   delay(800);
 
   intake(-200);
   drive.setMaxVelocity(150);
   driveProfile.setTarget("28");
   driveProfile.waitUntilSettled();
-
+/*
   driveTurn(65, side, 100);
   delay(650);
   driveDist(36, 200);
   delay(3000);
-
+*/
   robotStop();
 }
 
 void backAuton(int side){
-  driveArc(-48, -88, side, 200);
-  delay(5000);
+
+  driveTurn(90, side, 100);
+
+  delay(1500);
+
+  /*
+  mainPathGen();
+  intake(200);
+
+  driveProfile.setTarget("38");
+  driveProfile.waitUntilSettled();
+
+  driveProfile.removePath("34 red");
+  driveProfile.removePath("34 blue");
+  driveProfile.removePath("34 28");
+
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},  // Profile starting position, this will normally be (0, 0, 0)
+    Point{8_in, 0_ft, 0_deg}}, // The next point in the profile, 3 feet forward
+    "12" // Profile name
+  );
+  driveProfile.generatePath({
+    Point{0_ft, 0_ft, 0_deg},  // Profile starting position, this will normally be (0, 0, 0)
+    Point{28_in, 0_ft, 0_deg}}, // The next point in the profile, 3 feet forward
+    "20" // Profile name
+  );
+
+  driveProfile.setTarget("12", true);
+  driveProfile.waitUntilSettled();
+
+  driveTurn(90, side, 100);
+  delay(650);
+
+  driveProfile.setTarget("20");
+  driveProfile.waitUntilSettled();
+
+  left_back.moveRelative(0, 0);
+  left_front.moveRelative(0, 0);
+  right_back.moveRelative(0, 0);
+  right_front.moveRelative(0, 0);
 
   while (1) {
     robotStop();
   }
+  */
 }
 
 /*
@@ -101,7 +140,7 @@ void skillsAuton(int side){
   driveProfile.waitUntilSettled();
 
   drive.setMaxVelocity(200);
-  driveTurn(87, side, 85); // turn
+  driveTurn(89, side, 85); // turn
   delay(700);
 
   driveProfile.removePath("38");
@@ -113,7 +152,7 @@ void skillsAuton(int side){
 
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{29_in, 0_ft, 0_deg}}, // gen far path
+    Point{31_in, 0_ft, 0_deg}}, // gen far path
     "29"
   );
   driveProfile.generatePath({
@@ -167,10 +206,9 @@ void skillsAuton(int side){
   intake(-200);
   drive.setMaxVelocity(150);
   driveProfile.setTarget("50"); // flip cap
-  delay(700);
-  intake(0);
   driveProfile.removePath("18"); // remove 18
   driveProfile.waitUntilSettled(); // 50
+  intake(0);
 
   driveProfile.removePath("50"); // remove 18
 
@@ -191,7 +229,7 @@ void skillsAuton(int side){
     "29"
   );
 
-  driveTurn(-82, side, 100); // turn towards platform
+  driveTurn(-88, side, 100); // turn towards platform
   delay(800);
 
   driveProfile.setTarget("29");
@@ -201,7 +239,7 @@ void skillsAuton(int side){
 
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{34_in, 0_ft, 0_deg}},
+    Point{40_in, 0_ft, 0_deg}},
     "34"
   );
 
@@ -209,11 +247,13 @@ void skillsAuton(int side){
   delay(650);
 
   driveProfile.setTarget("34");
+  delay(1700);
+  intake(0);
   driveProfile.waitUntilSettled();
 
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{8_in, 0_ft, 0_deg}},
+    Point{12_in, 0_ft, 0_deg}},
     "6"
   );
 
@@ -238,7 +278,7 @@ void skillsAuton(int side){
 
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{26_in, 0_ft, 0_deg}},
+    Point{27_in, 0_ft, 0_deg}},
     "24"
   );
 
@@ -273,7 +313,7 @@ void skillsAuton(int side){
   driveProfile.removePath("44");
   driveProfile.generatePath({
     Point{0_ft, 0_ft, 0_deg},
-    Point{42_in, 0_ft, 0_deg}},
+    Point{39_in, 0_ft, 0_deg}},
     "26"
   );
 
