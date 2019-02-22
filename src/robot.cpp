@@ -22,7 +22,7 @@ ChassisControllerIntegrated drive = ChassisControllerFactory::create(
 	{left_front, left_back},
 	{right_front, right_back},
 	AbstractMotor::gearset::green,
-	{4_in, 14.5_in}
+	{4_in, 11.75_in}
 );
 
 //Motion profile
@@ -40,7 +40,7 @@ AsyncVelIntegratedController flywheel = AsyncControllerFactory::velIntegrated(fl
 AsyncPosIntegratedController lift = AsyncControllerFactory::posIntegrated(lift_mtr);
 
 void driveTurn(int degrees, int side, int speed){ //Pos degrees turns right
-	double arclength = 2 * 3.1415926 * 7.25 * (double(degrees) / 360);
+	double arclength = 2 * 3.1415926 *  * (double(degrees) / 360);
 
 	double dist = (arclength / 12.566) * 360;
 
