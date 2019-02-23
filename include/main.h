@@ -40,6 +40,7 @@
 #include "paths.h"
 #include "auton.h"
 #include "display/lvgl.h"
+#include "tracking.h"
 
 
 //#include "pros/api_legacy.h"

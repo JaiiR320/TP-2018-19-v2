@@ -13,7 +13,6 @@ void opcontrol() {
 	//1 controller
 	while (1){
 		while (duo == false){
-			//Drive - WIP
 			left = master.getAnalog(ControllerAnalog::leftY);
 			right = master.getAnalog(ControllerAnalog::rightY);
 

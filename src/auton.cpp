@@ -8,20 +8,20 @@ void mainAuton(int side){
   flySet(200);
   intake(200);
 
-  driveProfile.setTarget("38");
+  driveProfile.setTarget("34");
   driveProfile.waitUntilSettled();
   drive.setMaxVelocity(175);
-  if (side == -1) {
-    driveProfile.setTarget("34 red", true);
-    driveProfile.waitUntilSettled();
-  } else {
-    driveProfile.setTarget("34 blue", true);
-    driveProfile.waitUntilSettled();
-  }
+  driveProfile.setTarget("34", true);
+  driveProfile.waitUntilSettled();
   delay(500);
   drive.setMaxVelocity(200);
 
-  driveTurn(89, side, 85);
+  driveTurn(90, side, 85);
+
+  drive.tank(.01, .01);
+
+  driveProfile.setTarget("10");
+  driveProfile.waitUntilSettled();
 
   delay(1400);
   intake(0);
@@ -66,20 +66,22 @@ void mainAuton(int side){
   drive.setMaxVelocity(150);
   driveProfile.setTarget("28");
   driveProfile.waitUntilSettled();
-/*
+
   driveTurn(65, side, 100);
   delay(650);
   driveDist(36, 200);
   delay(3000);
-*/
+
   robotStop();
 }
 
 void backAuton(int side){
 
-  driveTurn(90, side, 100);
+  driveTurn(90, side, 75);
 
   delay(1500);
+
+  while(1){}
 
   /*
   mainPathGen();
@@ -337,4 +339,6 @@ void skillsAuton(int side){
   right_front.moveRelative(0, 0);
 
   robotStop();
+
+  while (1) {}
 }

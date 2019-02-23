@@ -25,7 +25,7 @@ extern Motor index_mtr;
 extern ADIGyro gyro;
 
 //Okapi controllers
-extern ChassisControllerIntegrated drive;
+extern ChassisControllerPID drive;
 extern AsyncMotionProfileController driveProfile;
 extern AsyncVelIntegratedController flywheel;
 extern AsyncPosIntegratedController lift;
